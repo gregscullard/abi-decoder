@@ -1,0 +1,10 @@
+{
+  "name": "abi-decoder",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "abi-decoder": "^2.4.0",
+    "axios": "^1.3.4",
+    "ethers": "^5.7.2"
+  }
+}

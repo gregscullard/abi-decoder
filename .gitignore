@@ -1,0 +1,4 @@
+node_modules
+.idea/*
+jsonFiles/*
+!jsonFiles/test.json
