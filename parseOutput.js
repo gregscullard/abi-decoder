@@ -115,21 +115,22 @@ function decodeOutput(depth, testData) {
     let decodedData = undefined;
 
     fs.readdirSync(filesLocation).forEach(file => {
-        // load the file
-        const fileData = fs.readFileSync(`${filesLocation}/${file}`);
-        const fileJson = JSON.parse(fileData.toString());
-        let fileAbi = fileJson;
-        // check if json contains an abi attribute
-        if (fileJson["abi"]) {
-            fileAbi = fileJson["abi"];
-        }
-        // pass the abi to the decoder
-        abiDecoder.addABI(fileAbi);
-        decodedData = abiDecoder.decodeMethod(testData);
-        if (decodedData) {
-            logWithTabulation(depth, `Found match in ${file}`);
-            console.dir(decodedData);
-            return;
+        if (! decodedData) {
+            // load the file
+            const fileData = fs.readFileSync(`${filesLocation}/${file}`);
+            const fileJson = JSON.parse(fileData.toString());
+            let fileAbi = fileJson;
+            // check if json contains an abi attribute
+            if (fileJson["abi"]) {
+                fileAbi = fileJson["abi"];
+            }
+            // pass the abi to the decoder
+            abiDecoder.addABI(fileAbi);
+            decodedData = abiDecoder.decodeMethod(testData);
+            if (decodedData) {
+                logWithTabulation(depth, `Found match in ${file}`);
+                console.dir(decodedData);
+            }
         }
     });
     if (! decodedData) {
